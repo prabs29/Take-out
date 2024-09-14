@@ -1,0 +1,217 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Order now</title>
+</head>
+<body>
+<nav id="nav">
+    <div class="navTop">
+<div class="navItem">
+   <a href="index.html"> <img src="./img/logo.png" width="90px" height="60px" alt=""></a>
+    </div>
+    <div class="navItem">
+        <div class="search">
+            <input type="text" placeholder="search..." class="searchInput">
+           <img src="./img/search.png" width="20" height="20" alt="" class="searchIcon">
+    </div>
+</div>
+<div class="navItem">
+    <a href="order.html"><span class="limitedOffer">ORDER NOW!</span></a>
+</div>
+    </div> 
+    </nav>
+    <div class="navBottom">
+        <h1 class="menuItem">Order Now</h1>
+    </div>
+    <div class="orderImg">
+        <img src="./img/meal4.jpg" height="400px" width="600px">
+        <img src="./img/meal2.jpg" height="400px" width="600px">
+        <img src="./img/meal1.jpg" height="400px" width="600px">
+        <img src="./img/meal3.jpg" height="400px" width="600px">
+
+        </div>
+    </div>
+    <div class="form-container">
+        <div class="btn-container">
+            <button id="orderForCollectionBtn">Order for Collection</button>
+            <button id="getItDeliveredBtn">Get It Delivered</button>
+        </div>
+    
+        <form id="collectionForm" class="form">
+            <h2>Order for Collection</h2>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="tel" name="phone" placeholder="Your Phone Number" required><br><br>
+            
+            <label for="foodTypeCollection">Choose food type:</label>
+            <select id="foodTypeCollection" name="foodType">
+                <option value="">Select</option>
+                <option value="pizza">Pizza</option>
+                <option value="burger">Burger</option>
+            </select>
+    
+            <div id="pizzaOptionsCollection" class="hidden">
+                <label for="pizzaTypeCollection">Choose pizza type:</label>
+                <select id="pizzaTypeCollection" name="pizzaType">
+                    <option value="margherita">Margherita</option>
+                    <option value="pepperoni">Pepperoni</option>
+                    <option value="veggie">Veggie</option>
+                    <option value="chicken">Chicken</option>
+                    <option value="spixy">Spicy</option>
+                </select>
+            </div>
+    
+            <div id="burgerOptionsCollection" class="hidden">
+                <label for="burgerTypeCollection">Choose burger type:</label>
+                <select id="burgerTypeCollection" name="burgerType">
+                    <option value="cheeseburger">Cheeseburger</option>
+                    <option value="baconburger">Bacon Burger</option>
+                    <option value="veggieburger">Veggie Burger</option>
+                    <option value="chickenburger">Chicken Burger</option>
+                    <option value="mexicanburger">Mexican Burger</option>
+                </select>
+            </div>
+    
+            <button type="submit">Submit Order for Collection</button>
+        </form>
+    
+        <form id="deliveryForm" class="form">
+            <h2>Order for Delivery</h2>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="tel" name="phone" placeholder="Your Phone Number" required><br><br>
+            
+            <label for="foodTypeDelivery">Choose food type:</label>
+            <select id="foodTypeDelivery" name="foodType">
+                <option value="">Select</option>
+                <option value="pizza">Pizza</option>
+                <option value="burger">Burger</option>
+            </select>
+    
+            <div id="pizzaOptionsDelivery" class="hidden">
+                <label for="pizzaTypeDelivery">Choose pizza type:</label>
+                <select id="pizzaTypeDelivery" name="pizzaType">
+                    <option value="margherita">Margherita</option>
+                    <option value="pepperoni">Pepperoni</option>
+                    <option value="veggie">Veggie</option>
+                    <option value="chicken">Chicken</option>
+                    <option value="spixy">Spicy</option>
+                </select>
+            </div>
+    
+            <div id="burgerOptionsDelivery" class="hidden">
+                <label for="burgerTypeDelivery">Choose burger type:</label>
+                <select id="burgerTypeDelivery" name="burgerType">
+                    <option value="cheeseburger">Cheeseburger</option>
+                    <option value="baconburger">Bacon Burger</option>
+                    <option value="veggieburger">Veggie Burger</option>
+                    <option value="chickenburger">Chicken Burger</option>
+                    <option value="mexicanburger">Mexican Burger</option>
+                </select>
+            </div>
+    
+            <button type="submit">Submit Order for Delivery</button>
+        </form>
+    </div>
+
+    <script>
+   const orderForCollectionBtn = document.getElementById('orderForCollectionBtn');
+    const getItDeliveredBtn = document.getElementById('getItDeliveredBtn');
+    const collectionForm = document.getElementById('collectionForm');
+    const deliveryForm = document.getElementById('deliveryForm');
+    const btnContainer = document.querySelector('.btn-container'); // Container for buttons
+
+    const foodTypeCollection = document.getElementById('foodTypeCollection');
+    const pizzaOptionsCollection = document.getElementById('pizzaOptionsCollection');
+    const burgerOptionsCollection = document.getElementById('burgerOptionsCollection');
+    
+    const foodTypeDelivery = document.getElementById('foodTypeDelivery');
+    const pizzaOptionsDelivery = document.getElementById('pizzaOptionsDelivery');
+    const burgerOptionsDelivery = document.getElementById('burgerOptionsDelivery');
+
+    // Event listeners
+    orderForCollectionBtn.addEventListener('click', function() {
+        showForm(collectionForm);
+        hideForm(deliveryForm);
+        hideButtons();
+    });
+
+    getItDeliveredBtn.addEventListener('click', function() {
+        showForm(deliveryForm);
+        hideForm(collectionForm);
+        hideButtons();
+    });
+
+    foodTypeCollection.addEventListener('change', function () {
+        if (this.value === 'pizza') {
+            pizzaOptionsCollection.classList.remove('hidden');
+            burgerOptionsCollection.classList.add('hidden');
+        } else if (this.value === 'burger') {
+            burgerOptionsCollection.classList.remove('hidden');
+            pizzaOptionsCollection.classList.add('hidden');
+        } else {
+            pizzaOptionsCollection.classList.add('hidden');
+            burgerOptionsCollection.classList.add('hidden');
+        }
+    });
+
+    foodTypeDelivery.addEventListener('change', function () {
+        if (this.value === 'pizza') {
+            pizzaOptionsDelivery.classList.remove('hidden');
+            burgerOptionsDelivery.classList.add('hidden');
+        } else if (this.value === 'burger') {
+            burgerOptionsDelivery.classList.remove('hidden');
+            pizzaOptionsDelivery.classList.add('hidden');
+        } else {
+            pizzaOptionsDelivery.classList.add('hidden');
+            burgerOptionsDelivery.classList.add('hidden');
+        }
+    });
+
+    // Function to show a form
+    function showForm(form) {
+        form.classList.add('active');
+    }
+
+    // Function to hide a form
+    function hideForm(form) {
+        form.classList.remove('active');
+    }
+
+    // Function to hide buttons
+    function hideButtons() {
+        btnContainer.style.display = 'none';
+    }
+
+    // Example: Form submission handling (prevent default for demo)
+    collectionForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(collectionForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const message = formData.get('message');
+        const foodType = formData.get('foodType');
+        const foodDetail = foodType === 'pizza' ? formData.get('pizzaType') : formData.get('burgerType');
+        console.log('Order for Collection submitted:', name, email, message, foodType, foodDetail);
+        collectionForm.reset();
+        alert('Order for Collection submitted successfully!');
+    });
+
+    deliveryForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(deliveryForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const message = formData.get('message');
+        const foodType = formData.get('foodType');
+        const foodDetail = foodType === 'pizza' ? formData.get('pizzaType') : formData.get('burgerType');
+        console.log('Order for Delivery submitted:', name, email, message, foodType, foodDetail);
+        deliveryForm.reset();
+        alert('Order for Delivery submitted successfully!');
+    });
+    </script>
+</body>
+</html>
